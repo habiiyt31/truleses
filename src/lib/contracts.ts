@@ -1,0 +1,5 @@
+export const CONTRACTS = {
+  TRULESES: (process.env.NEXT_PUBLIC_TRULESES_ADDRESS || "0xEBcD3eD5d2b80A3d335a27b8965dD53541AeFED2") as `0x${string}`,
+  STORAGE: (process.env.NEXT_PUBLIC_STORAGE_ADDRESS || "0x41b08020aAc51A2eAc642Fc85e2af54Ed49277F8") as `0x${string}`,
+  STAT: (process.env.NEXT_PUBLIC_STAT_ADDRESS || "0x2Be29420f1Ab6830ab558592947721821C429489") as `0x${string}`,
+} as const;
