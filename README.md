@@ -13,7 +13,6 @@ AI powered multiplayer True/False quiz game on GenLayer blockchain.
 8. Answers submitted on-chain (auto-graded, XP calculated)
 9. Leaderboard per room shown
 10. Game archived on-chain
-11. Global leaderboard aggregates all rooms
 
 ## Setup
 
@@ -28,9 +27,9 @@ Open http://localhost:3000
 ## .env.local
 
 ```
-NEXT_PUBLIC_TRULESES_ADDRESS=0xYOUR_ADDRESS
-NEXT_PUBLIC_STORAGE_ADDRESS=0xYOUR_ADDRESS
-NEXT_PUBLIC_STAT_ADDRESS=0xYOUR_ADDRESS
+NEXT_PUBLIC_TRULESES_ADDRESS=0xEBcD3eD5d2b80A3d335a27b8965dD53541AeFED2
+NEXT_PUBLIC_STORAGE_ADDRESS=0x41b08020aAc51A2eAc642Fc85e2af54Ed49277F8
+NEXT_PUBLIC_STAT_ADDRESS=0x2Be29420f1Ab6830ab558592947721821C429489
 ```
 
 ## Smart Contracts (deploy in order)

@@ -14,7 +14,7 @@ export default function Home() {
     <div style={{ textAlign:"center",padding:"50px 20px" }}>
       <h1 className="glow" style={{ fontFamily:"var(--font-pixel)",fontSize:"clamp(22px,5vw,40px)",color:"var(--pixel-gold)",marginBottom:10 }}>TRULESES</h1>
       <p style={{ fontFamily:"var(--font-retro)",fontSize:28,color:"var(--pixel-green)" }}>True or False Quiz Game</p>
-      <p style={{ fontFamily:"var(--font-retro)",fontSize:20,color:"var(--pixel-gray)",marginBottom:10 }}>Powered by GenLayer AI</p>
+      <p style={{ fontFamily:"var(--font-retro)",fontSize:20,color:"var(--pixel-gray)",marginBottom:10 }}>Powered by GenLayer</p>
 
       <div style={{ margin:"30px auto",width:96,height:96 }}>
         <svg viewBox="0 0 16 16" width="96" height="96" style={{ imageRendering:"pixelated" as const }}>

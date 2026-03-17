@@ -4,7 +4,7 @@ import "./globals.css";
 import { WalletProvider } from "@/lib/wallet-provider";
 import WalletInfo from "@/components/wallet-info";
 
-export const metadata: Metadata = { title: "TRULESES - True or False Quiz", description: "AI-powered quiz game on GenLayer" };
+export const metadata: Metadata = { title: "TRULESES", description: "AI-powered quiz game on GenLayer" };
 
 function Stars() {
   const s = Array.from({ length: 50 }, (_, i) => ({ id: i, l: `${Math.random()*100}%`, t: `${Math.random()*100}%`, sz: Math.random()*2+1, dl: `${Math.random()*3}s`, dr: `${Math.random()*2+2}s` }));
