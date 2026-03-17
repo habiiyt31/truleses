@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Link href="/" style={{ fontFamily:"var(--font-pixel)",fontSize:13,color:"var(--pixel-gold)",textDecoration:"none" }}>TRULESES</Link>
           <div style={{ display:"flex",gap:16,alignItems:"center" }}>
             <Link href="/rooms" style={{ color:"var(--pixel-green)" }}>Rooms</Link>
-            <Link href="/leaderboard" style={{ color:"var(--pixel-gold)" }}>Ranks</Link>
+            <Link href="/history" style={{ color:"var(--pixel-green)" }}>History</Link>
             <Link href="/profile" style={{ color:"var(--pixel-purple)" }}>Profile</Link>
             <WalletInfo />
           </div>
