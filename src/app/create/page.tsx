@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWallet } from "@/lib/wallet-provider";
-import ConnectWallet from "@/components/connect-wallet";
 
 const THEMES = ["Blockchain","Science","History","Geography","Technology","Crypto","Gaming","Sports","Movies","Music"];
 
@@ -13,7 +12,17 @@ export default function CreateRoom() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
 
-  if (!connected) return <ConnectWallet />;
+  if (!connected) return (
+    <div style={{ textAlign:"center", padding:80 }}>
+      <p style={{ fontFamily:"var(--font-pixel)", fontSize:11, color:"var(--pixel-gold)", marginBottom:16 }}>
+        Please connect your wallet first
+      </p>
+      <p style={{ fontFamily:"var(--font-retro)", fontSize:18, color:"var(--pixel-gray)" }}>
+        Use the Connect button in the top right corner
+      </p>
+      <button className="pixel-btn pixel-btn-gray" style={{ marginTop:24 }} onClick={() => router.push("/")}>Back to Home</button>
+    </div>
+  );
 
   const handleCreate = async () => {
     if (!form.gameId.trim()) { setStatus("Enter a Room ID!"); return; }

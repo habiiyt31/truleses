@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useWallet } from "@/lib/wallet-provider";
-import ConnectWallet from "@/components/connect-wallet";
 
 function PlayContent() {
   const router = useRouter();
@@ -62,7 +61,17 @@ function PlayContent() {
     } catch { setPhase("play"); }
   };
 
-  if (!connected) return <ConnectWallet />;
+  if (!connected) return (
+    <div style={{ textAlign:"center", padding:80 }}>
+      <p style={{ fontFamily:"var(--font-pixel)", fontSize:11, color:"var(--pixel-gold)", marginBottom:16 }}>
+        Please connect your wallet first
+      </p>
+      <p style={{ fontFamily:"var(--font-retro)", fontSize:18, color:"var(--pixel-gray)" }}>
+        Use the Connect button in the top right corner
+      </p>
+      <button className="pixel-btn pixel-btn-gray" style={{ marginTop:24 }} onClick={() => router.push("/")}>Back to Home</button>
+    </div>
+  );
 
   if (phase === "load") return <div style={{ textAlign:"center",padding:80 }}><p className="glow" style={{ fontFamily:"var(--font-pixel)",fontSize:14,color:"var(--pixel-gold)" }}>Loading quiz...</p></div>;
 
@@ -101,7 +110,6 @@ function PlayContent() {
     </div>
   );
 
-  // Playing
   const q = questions[cur];
   const prog = (cur/questions.length)*100;
   const tPct = (timeLeft/timePer)*100;

@@ -3,9 +3,24 @@ import { useState } from "react";
 import { useWallet } from "@/lib/wallet-provider";
 
 export default function WalletInfo() {
-  const { address, nickname, connected, disconnect } = useWallet();
+  const { address, nickname, connected, connectWallet, disconnect } = useWallet();
   const [open, setOpen] = useState(false);
-  if (!connected || !address) return null;
+
+  if (!connected || !address) {
+    return (
+      <button
+        onClick={connectWallet}
+        style={{
+          fontFamily: "var(--font-pixel)", fontSize: 9, color: "var(--pixel-gold)",
+          background: "var(--pixel-dark)", border: "2px solid var(--pixel-gold)",
+          padding: "6px 12px", cursor: "pointer",
+        }}
+      >
+        Connect
+      </button>
+    );
+  }
+
   const short = address.slice(0, 6) + "..." + address.slice(-4);
 
   return (

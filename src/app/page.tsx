@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useWallet } from "@/lib/wallet-provider";
-import ConnectWallet from "@/components/connect-wallet";
 
 export default function Home() {
-  const { address, nickname, connected, loading } = useWallet();
+  const { address, nickname, loading } = useWallet();
   if (loading) return <div style={{ textAlign:"center",padding:80,fontFamily:"var(--font-pixel)",color:"var(--pixel-gold)" }}>Loading...</div>;
-  if (!connected) return <ConnectWallet />;
 
   const short = address ? address.slice(0,6) + "..." + address.slice(-4) : "";
 
@@ -35,7 +33,7 @@ export default function Home() {
         <Link href="/profile"><button className="pixel-btn pixel-btn-purple" style={{ width:"100%" }}>My Profile</button></Link>
       </div>
 
-      <p style={{ fontFamily:"var(--font-pixel)",fontSize:8,color:"var(--pixel-gray)",marginTop:40 }}>Connected: {short}</p>
+      {address && <p style={{ fontFamily:"var(--font-pixel)",fontSize:8,color:"var(--pixel-gray)",marginTop:40 }}>Connected: {short}</p>}
     </div>
   );
 }

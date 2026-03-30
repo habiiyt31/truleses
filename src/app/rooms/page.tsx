@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useWallet } from "@/lib/wallet-provider";
-import ConnectWallet from "@/components/connect-wallet";
 
 export default function RoomsPage() {
   const router = useRouter();
@@ -23,7 +22,17 @@ export default function RoomsPage() {
     })();
   }, [connected]);
 
-  if (!connected) return <ConnectWallet />;
+  if (!connected) return (
+    <div style={{ textAlign:"center", padding:80 }}>
+      <p style={{ fontFamily:"var(--font-pixel)", fontSize:11, color:"var(--pixel-gold)", marginBottom:16 }}>
+        Please connect your wallet first
+      </p>
+      <p style={{ fontFamily:"var(--font-retro)", fontSize:18, color:"var(--pixel-gray)" }}>
+        Use the Connect button in the top right corner
+      </p>
+      <button className="pixel-btn pixel-btn-gray" style={{ marginTop:24 }} onClick={() => router.push("/")}>Back to Home</button>
+    </div>
+  );
 
   const goRoom = (id: string, state: string) => {
     if (state === "ACTIVE") router.push(`/play?id=${id}`);

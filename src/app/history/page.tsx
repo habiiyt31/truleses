@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useWallet } from "@/lib/wallet-provider";
-import ConnectWallet from "@/components/connect-wallet";
 
 export default function HistoryPage() {
   const router = useRouter();
@@ -10,7 +9,6 @@ export default function HistoryPage() {
   const [games, setGames] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // State baru untuk menangani dropdown leaderboard
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
   const [loadingLb, setLoadingLb] = useState(false);
@@ -27,30 +25,30 @@ export default function HistoryPage() {
     })();
   }, [connected]);
 
-  // Fungsi untuk memunculkan/menyembunyikan leaderboard di halaman yang sama
   const handleViewClick = async (gameId: string) => {
-    // Jika diklik game yang sama, maka tutup dropdown-nya
-    if (expandedId === gameId) {
-      setExpandedId(null);
-      return;
-    }
-
-    // Buka dropdown dan mulai loading
+    if (expandedId === gameId) { setExpandedId(null); return; }
     setExpandedId(gameId);
     setLoadingLb(true);
     setLeaderboardData([]);
-
     try {
       const res = await read(C.TRULESES, "get_leaderboard", [gameId]);
       const data = JSON.parse(res as string);
       setLeaderboardData(data.leaderboard || []);
-    } catch (e) {
-      console.log("Failed to load leaderboard");
-    }
+    } catch (e) { console.log("Failed to load leaderboard"); }
     setLoadingLb(false);
   };
 
-  if (!connected) return <ConnectWallet />;
+  if (!connected) return (
+    <div style={{ textAlign:"center", padding:80 }}>
+      <p style={{ fontFamily:"var(--font-pixel)", fontSize:11, color:"var(--pixel-gold)", marginBottom:16 }}>
+        Please connect your wallet first
+      </p>
+      <p style={{ fontFamily:"var(--font-retro)", fontSize:18, color:"var(--pixel-gray)" }}>
+        Use the Connect button in the top right corner
+      </p>
+      <button className="pixel-btn pixel-btn-gray" style={{ marginTop:24 }} onClick={() => router.push("/")}>Back to Home</button>
+    </div>
+  );
 
   return (
     <div className="slide-up" style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
@@ -67,19 +65,9 @@ export default function HistoryPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {games.map((g: any) => (
               <div key={g.id} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                
-                {/* CARD UTAMA GAME */}
                 <div 
                   className="pixel-border" 
-                  style={{ 
-                    background: expandedId === g.id ? "var(--pixel-darker)" : "var(--pixel-dark)", 
-                    padding: 14, 
-                    display: "flex", 
-                    justifyContent: "space-between", 
-                    alignItems: "center", 
-                    cursor: "pointer",
-                    transition: "all 0.2s"
-                  }}
+                  style={{ background: expandedId === g.id ? "var(--pixel-darker)" : "var(--pixel-dark)", padding: 14, display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", transition: "all 0.2s" }}
                   onClick={() => handleViewClick(g.id)}
                 >
                   <div>
@@ -93,26 +81,21 @@ export default function HistoryPage() {
                   </button>
                 </div>
 
-                {/* AREA LEADERBOARD (DROPDOWN) */}
                 {expandedId === g.id && (
                   <div className="pixel-border" style={{ background: "rgba(0,0,0,0.4)", padding: "14px", borderTop: "none" }}>
                     <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--pixel-green)", marginBottom: 10 }}>RESULTS</div>
-                    
                     {loadingLb ? (
                        <p style={{ fontFamily: "var(--font-retro)", fontSize: 16, color: "var(--pixel-gray)", textAlign: "center" }}>Fetching ranks...</p>
                     ) : leaderboardData.length === 0 ? (
                        <p style={{ fontFamily: "var(--font-retro)", fontSize: 16, color: "var(--pixel-gray)", textAlign: "center" }}>No players played this game.</p>
                     ) : (
                       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        {/* Header Tabel Mini */}
                         <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-pixel)", fontSize: 8, color: "var(--pixel-gray)", borderBottom: "2px dashed var(--pixel-dark)", paddingBottom: 4 }}>
                           <span style={{ flex: 0.5 }}>#</span>
                           <span style={{ flex: 2 }}>PLAYER</span>
                           <span style={{ flex: 1, textAlign: "center" }}>R / W</span>
                           <span style={{ flex: 1, textAlign: "right" }}>XP</span>
                         </div>
-                        
-                        {/* List Pemain */}
                         {leaderboardData.map((player: any) => (
                           <div key={player.address} style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-retro)", fontSize: 16, color: player.rank === "1" ? "var(--pixel-gold)" : "white" }}>
                             <span style={{ flex: 0.5 }}>{player.rank}</span>
@@ -127,7 +110,6 @@ export default function HistoryPage() {
                     )}
                   </div>
                 )}
-
               </div>
             ))}
           </div>
